@@ -9,24 +9,32 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var assignmentItems =
-    [AssignmentItem(priority: "High", description: "Take out trash", dueDate: Date()),
-     AssignmentItem(priority: "Medium", description: "Pick up clothes", dueDate: Date()),
-     AssignmentItem(priority: "Low", description: "Eat a donut", dueDate: Date())]
+            [AssignmentItem(priority: "High", description: "Take out trash", dueDate: Date()),
+             AssignmentItem(priority: "Medium", description: "Pick up clothes", dueDate: Date()),
+             AssignmentItem(priority: "Low", description: "Eat a donut", dueDate: Date())]
     var body: some View {
-        NavigationView {
-            List {
+        NavigationView{
+            List{
                 ForEach(assignmentItems) {item in
-                    Text(item.description)
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(item.priority)
+                                .font(.headline)
+                            Text(item.description)
+                        }
+                        Spacer()
+                        Text(item.dueDate, style: .date)
+                    }
                 }
-                .onMove {indices, newOffset in
+                .onMove { indices, newOffset in
                     assignmentItems.move(fromOffsets: indices, toOffset: newOffset)
                 }
-                .onDelete { indexSet in
+                .onDelete{ indexSet in
                     assignmentItems.remove(atOffsets: indexSet)
                 }
             }
-                .navigationBarTitle("Assignments", displayMode: .inline)
-                .navigationBarItems(leading: EditButton())
+            .navigationBarTitle("Assignments", displayMode: .inline)
+            .navigationBarItems(leading: EditButton())
         }
     }
 }
@@ -36,7 +44,6 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-
 struct AssignmentItem: Identifiable {
     var id = UUID()
     var priority = String()
