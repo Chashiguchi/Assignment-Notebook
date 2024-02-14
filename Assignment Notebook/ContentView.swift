@@ -17,9 +17,6 @@ struct ContentView: View {
                 ForEach(assignmentList.items) { item in
                     VStack(alignment: .leading) {
                         HStack {
-                            Text(item.priority)
-                                .font(.headline)
-                            Spacer()
                             Text(item.dueDate, style: .date)
                         }
                         .padding(.vertical, 8) // Add vertical padding so it doesnt interefere with the top of the text
@@ -29,11 +26,11 @@ struct ContentView: View {
                         .cornerRadius(7) // Rounded corners
                         Text(item.description)
                             .padding(.leading, 8)
-                            .padding(.vertical, 8) // Add vertical padding
-                            .padding(.horizontal, 4)// Add horizOntal padding
-                            .background(Color.cyan) // Set background color
-                            .border(Color.black, width: 2) // Add border
-                            .cornerRadius(7) // Rounded corners
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 4)
+                            .background(Color.cyan)
+                            .border(Color.black, width: 2)
+                            .cornerRadius(7)
                     }
                 }
                 .onMove { indices, newOffset in
@@ -62,7 +59,6 @@ struct ContentView_Previews: PreviewProvider {
 
 struct AssignmentItem: Identifiable, Codable {
     var id = UUID()
-    var priority = String()
     var description = String()
     var dueDate = Date()
 }
