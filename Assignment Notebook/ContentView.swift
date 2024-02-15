@@ -10,17 +10,18 @@ import SwiftUI
 struct ContentView: View {
     @ObservedObject var assignmentList = AssignmentList()
     @State private var showingAddAssignmentView = false
-    
     var body: some View {
         NavigationView {
             List {
                 ForEach(assignmentList.items) { item in
-                    VStack(alignment: .leading) {
-                        HStack {
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(item.cource)
+                                .font(.headline)
                             Text(item.dueDate, style: .date)
                         }
                         .padding(.vertical, 8) // Add vertical padding so it doesnt interefere with the top of the text
-                        .padding(.horizontal, 8)// Add horizOntal padding so it doesnt interfere with the side of the text
+                        .padding(.horizontal, 8)// Add horizontal padding so it doesnt interfere with the side of the text
                         .background(Color.cyan) // Set background color
                         .border(Color.black, width: 2) // Add border
                         .cornerRadius(7) // Rounded corners
@@ -59,6 +60,7 @@ struct ContentView_Previews: PreviewProvider {
 
 struct AssignmentItem: Identifiable, Codable {
     var id = UUID()
+    var cource = String()
     var description = String()
     var dueDate = Date()
 }
